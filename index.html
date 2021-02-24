@@ -322,13 +322,81 @@
         <div class="my-auto">
           <h2 class="mb-5">BLOGS</h2>
           <ul class="fa-ul mb-0">
-            <h3 class="mb-0">1) Titanic - Machine Learning from Disaster Project from Kaggle</h3></br>
-            <div class="subheading mb-3">OVERVIEW</div>
-             <p> In this project we need to create a machine learning model that predicts which passengers survived the Titanic shipwreck.
+            <h3 class="mb-0">Titanic - Machine Learning from Disaster Project from Kaggle Walk Through</h3></br>
+            <p>In this blog, I hope to show how I worked through the famous Titanic problem in kaggle for Beginners. 
+              The goal is to correctly predict if someone survived the Titanic shipwreck.</p>
+            <p> In this project we need to create a machine learning model that predicts which passengers survived the Titanic shipwreck.
                In this challenge, I built a predictive model that answers the question: “what sorts of people were more likely to survive?” using passenger data (ie name, age, gender, socio-economic class, etc). 
-              I have used a Random Forest model. This model is constructed of several trees that will individually consider each passenger's data and predict on whether the individual survived.
-              The random forest model makes a democratic decision: the outcome with the most votes is chosen.</p>
-              <p> <a href="https://www.kaggle.com/nssurya1996/titanic-problem"> kaggle Notebook </a>for the Project</p> 
+              </p>
+              <p> Lets see the each steps that I used to approach the problem where I improved my score of  
+                <b>0.76555</b> to <b>0.77511</b>. I am adding my <a href="https://www.kaggle.com/nssurya1996/titanic-problem"> kaggle Notebook </a>that I used for the Project for reference</p> </br>
+                <div class="subheading mb-3">DATASET </div>
+                <p>There are two files that we would be given under the data tab on the top of the competition page. 
+                  The two files that we use are the : (1) train.csv (2) test.csv</p>
+                  <p><b>train.csv</b> contains the details of a subset of the passengers on board (891 passengers, where each passenger gets a different row in the table).
+                    The values in the second column "Survived" can be used to determine whether each passenger survived or not. If it is '1' - the passenger survived, if '0' the passenger died.
+                  </p>
+                  <p><b>test.csv</b>-- Using the patterns we find in train.csv, we have to predict whether the other 418 passengers on board (in test.csv) survived.</p>
+                  <p>Our prediction submission file must contain only two columns, if we have more than that we will face issue while submission.The file must contain a "PassengerId" column containing the IDs 
+                    of each passenger from test.csv.A "Survived" column (that we will create!) with a "1" for the rows where we think the passenger survived, and a "0" where we predict that the passenger died.</p>
+                    <div class="subheading mb-3">The different steps I used in this Project </div>
+                    <div class="subheading mb-3">1) Importing the different libraries used in the code </div>
+                    <img  src="img/packages.png"> <br><br>
+                    <div class="subheading mb-3">2) Loading the training data to variable(train_data) and analysing it</div>
+                    <img  src="img/train_data.png"> <br><br>
+                    <img  src="img/info.png"> <br><br>
+                    <p>From the above table we can see that there are lot of null values in Age and Cabin Column and two null values in Embarked Column out of total 891 entries</p>
+                    <img  src="img/trainhead.PNG"> <br><br>
+                    <p>To better understand the numerical data , we can use the .describe() method.This gives us an understanding of the central
+                      tendencies of the data</p>
+                      <img  src="img/describe.PNG"> <br><br>
+                    <div class="subheading mb-3">3) Loading the test data to variable(test_data)  and analysing it</div>
+                    <img  src="img/test.PNG"> <br><br>
+                    <div class="subheading mb-3">4) Splitting the numerical and categorical data</div>
+                    <img  src="img/splitdata.PNG"> <br><br>
+                    <div class="subheading mb-3">5) Plotting a histogram for all the numerical data</div>
+                    <img  src="img/hist.PNG"> <br><br>
+                    <img  src="img/hist1.PNG"> <br><br>
+                    <img  src="img/hist2.PNG"> <br><br>
+                    <p>From the above histogram we can know that the Age is a normal distribution whereas the other features are not normally distributed. So, we might need to normalise the features like Fare, to have its correct contribution during the Prediction</p>
+                    <div class="subheading mb-3">6) Corrplot</div>
+                    <img  src="img/corr.PNG"> <br><br>
+                    <img  src="img/corr1.PNG"> <br><br>
+                    <p>From the above heatmap we can infer some correlations between features. for eg: 1) The number of parents and number of sibilings ie family tend to travel together.2)The Age and the number of siblings(SibSp) has a negative correlation and such. These help us to understand the different relationship in our data.</p>
+                    <div class="subheading mb-3">7) Pivot table-Comparing survival rate across numeric variables</div>
+                    <img  src="img/pivot-num.PNG"> <br><br>
+                    <p>Even though it might not contribute directly, we might get a understanding of the data like younger people have survived more and the people who paid high fare had high chances of survival. These are the things we need to make note of while building our models.</p>
+                    <div class="subheading mb-3">8) Categorical Data--Bar charts to understand the categorical data</div>
+                    <img  src="img/cat.PNG"> <br><br>
+                    <img  src="img/cat1.PNG"> <br><br>
+                    <img  src="img/cat2.PNG"> <br><br>
+                    <img  src="img/cat3.PNG"> <br><br>
+                    <img  src="img/cat4.PNG"> <br><br>
+                    <img  src="img/cat5.PNG"> <br><br>
+                    <img  src="img/cat6.PNG"> <br><br>
+                    <div class="subheading mb-3">9) Comparing survival and each of these categorical variables</div>
+                    <img  src="img/catsurvival.PNG"> <br><br>
+                    <img  src="img/catsurvival1.PNG"> <br><br>
+                    <p>From the above pivot table we can understand that relatively the lot of people from first class survived,lot of women compared to men were rescued first.We can understand that this feature(sex) will play an important contribution in the prediction.</p>
+                    <div class="subheading mb-3">10) To find the percentage of the women survived in titanic</div>
+                    <img  src="img/womensurvival.PNG"> <br><br>
+                    <div class="subheading mb-3">11) To find the percentage of the Men survived in titanic</div>
+                    <img  src="img/mensurvival.PNG"> <br><br>
+                    <div class="subheading mb-3">12) Developing a model-RandomeForestClassifer model</div>
+                    <p>I have used what's known as a random forest model. This model is constructed of several "trees" that will individually consider each passenger's data and vote on whether the individual survived. Then, the random forest model makes a decision based on majority: the outcome with the most votes wins.The code cell below looks for patterns in four different columns ("Pclass", "Sex", "SibSp", and "Parch") of the data. It constructs the trees in the random forest model based on patterns in the train.csv file, before generating predictions for the passengers in test.csv.</p>
+                    <p>Creating the RandomeForestClassifer model to train and fit the data. After that we predict whether the passengers in the test_data had survived or not(0/1). At the end we load the predictions to prediction_submission.csv.</p>
+                    <img  src="img/model.PNG"> <br><br>
+                      
+
+
+
+
+
+
+                    
+                    
+
+
              
         
 
