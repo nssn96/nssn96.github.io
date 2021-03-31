@@ -322,6 +322,93 @@
         <div class="my-auto">
           <h2 class="mb-5">BLOGS</h2>
           <ul class="fa-ul mb-0">
+            <h3 class="mb-0">Training an image classifier using CNN on the CIFAR-10 dataset</h3></br>
+            <p>We will be building an image classifier using CNN(convolutional Neural Net) on the famous dataset--The CIFAR-10 dataset. Please find below the complete guide with code and  various steps involved from downloading the dataset to building ,training and testing the model</p>
+            <p>The link to my complete code on <a href="https://github.com/nssn96/Image_Classifier/blob/main/Image_classifier_CIFAR10.ipynb">Google colab</a></p>
+            <p>Lets see the each steps that I used to approach the problem where I improved my accuracy from 54% to 71% </p>
+            <div class="subheading mb-3">Exploring the dataset</div>
+            <p>Data exploration is one of the most important step in any machine learning problem. If you understand your data well, we have half the solution since you will be building the model depending on the data. Before starting to work on any dataset, how many classes are there and what the images look like, what is the size of dataset Here, in the CIFAR-10 dataset,</p>
+            <p>1)Images are of size 32X32X3 (32X32 pixels and 3 colour channels namely RGB(Red-Green-Blue)</p>
+            <p>2)There are 10 classes. (classes = ('plane', 'car', 'bird', 'cat','deer', 'dog', 'frog', 'horse', 'ship', 'truck')</p>
+            <p>3)The dataset consists of 60000 with 6000 images per class.</p>
+            <p>4)There are 50000 training images (this means we get 5000 images per class for training our NN) and 10000 test images.</p>
+            <p>We can download the dataset train and test datasets as follows:</p>
+            <img  src="img/NN_imageimport.PNG"> <br><br>
+            
+            <div class="subheading mb-3">Checking the images from the dataset </div>
+            <p>The code to check some images from the dataset</p>
+            <img  src="img/images.PNG"> <br><br>
+
+            <div class="subheading mb-3">Define a Convolutional Neural Network </div>
+            <p>Now, we will create a basic model for solving our classification problem. We will be building using the nn.Module class already provided by PyTorch, it contains the initialization and forward methods.</p>
+            <p>For training our model we need to form batches of images from our dataset, so we will be using the DataLoader() function provided by PyTorch. DataLoader gives us a dynamic environment to create the batches and makes our data easily iterable.</p>
+             <p>In this code, I have implemented <b>three convolution layers and five linear layers</b></p>
+             <img  src="img/CNN_model.PNG"> <br><br>
+
+             <div class="subheading mb-3">Use of GPU(Graphics processing unit) in processing data</div>
+             <p>Initially I ran the program on CPU, since the number of networks and layer was very small and the epoch times was just two times. But once I started experimenting by increasing the number of convolution and linear layer and the epoch times, the program started running for more than 10 minutes which was very time consuming. That’s when I got the idea of using GPUs instead of CPUs for training the network, as it will be faster, and the CPU will be free to perform other processes.</p>
+             <P>To enable GPU in our Google Colab, we need to select the following option Runtime-->change runtime type.</P>
+             <img  src="img/GPU1.PNG"> <br><br>
+             <img  src="img/GPU2.PNG"> <br><br>
+             <p>For the GPU to work we need to  send the inputs and targets at every step to the GPU too and the model must be in GPU as well.We need to make the below changes in the code for the GPU to work</p>
+             <img  src="img/GPU3.PNG"> <br><br>
+             <img  src="img/GPU4.PNG"> <br><br>
+
+             <p>After doing this you will notice a massive speed up in your training of network.</p>
+
+             <div class="subheading mb-3">Define a Loss function and optimizer</div>
+             <p>The loss function used is the cross-entropy loss which has in-built negative log likelihood loss and softmax also, which can be easily used for the classification task.
+              The optimizer was initially used with SGD(Stochastic gradient descent) but I am experimenting with various other optimizers like Adam(Adaptive Moment Estimation), Adagrad,Rprop,RMSprop and fine tuning it to improve the accuracy.
+              </p>
+              <img  src="img/optim.PNG"> <br><br>
+
+              <div class="subheading mb-3">Train the network </div>
+              <p>In this step we just need to loop over our data iterator, and feed the inputs to the network and optimize.Finally we save the trained model.</p>
+              <img  src="img/CNN_train.PNG"> <br><br>
+
+              <div class="subheading mb-3">Test the network on the test data</div>
+              <p>This is the final step, we have built our model, trained the model, this step is to test our model and how accurate it is on our prediction.</p>
+              <p>The below output will show the average accuracy of the network and the accuracy of each classes.</p>
+              <img  src="img/Test1.PNG"> <br><br>
+              <img  src="img/Test2.PNG"> <br><br>
+              <p>The Average accuracy of the Network</p>
+              <img  src="img/acc.PNG"> <br><br>
+              <p>The Average of each classes</p>
+              <img  src="img/acc2.PNG"> <br><br>
+
+
+              <div class="subheading mb-3">Some of the challenges/Observations during this Model Development</div>
+              <p>•Using GPU will save a lot of training time when compared to CPU, when you increase the Convolutional, linear layers layer and the epoch times.</p>
+              <p>•	When I used SGD as optimizer, it was very slow as it oscillates when there are deep sides. But using Adam (Adaptive Moment Estimation) the learning was better and fast, it took a smaller number of epochs to train the network, its adaptive learning rate, bias-correction and momentum make it a good choice.</p>
+              <p>•	You can change the number of epochs, more epochs mean more training and better the model in its accuracy.</p>
+
+
+            <div class="subheading mb-3">Different efficiencies with changes in the epoch,cov layers and optimizers</div>
+            <p>Please find below the different trials that I did using different models,changing the layers and the parameters</p>
+            <img  src="img/eff.PNG"> <br><br>
+
+              <div class="subheading mb-3">References</div>
+              <p>Please find below the references I used to understand the concept and build this model</p>
+              <p>1) <a href="https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-py">Pytorch tutorial for Image classifier</a></p>
+              <p>In this tutorial a basic Neural Net(2x3  2-convolution,3-Linear) was used and SGD was used as an optimizer. I have experimented by increasing the convolutional and linear layes,using a Adam optimizer,increasing the epoch times and running on GPU for time efficiency. This resulted in improving my accuracy to 71%</p>
+              <p>2)<a href="https://colab.research.google.com/drive/1anXOqz-artoBWbdK0Ff2IYDtwe5PpRqH?usp=sharing">My Google colab notebook</a></p>
+              <p>3)<a href="https://www.cs.toronto.edu/~kriz/cifar.html">The CIFAR-10 dataset</a>-for exploratory data analysis</p>
+              <p>4)<a href="https://becominghuman.ai/build-your-own-neural-network-for-cifar-10-using-pytorch-9bdffb389b7a">Build your own Neural Net</a></p>
+
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
             <h3 class="mb-0">Titanic - Machine Learning from Disaster Project from Kaggle Walk Through</h3></br>
             <p>In this blog, I hope to show how I worked through the famous Titanic problem in kaggle for Beginners. 
               The goal is to correctly predict if someone survived the Titanic shipwreck.</p>
@@ -341,10 +428,10 @@
                     of each passenger from test.csv.A "Survived" column (that we will create!) with a "1" for the rows where we think the passenger survived, and a "0" where we predict that the passenger died.</p>
                     <div class="subheading mb-3">The different steps I used in this Project </div>
                     <div class="subheading mb-3">1) Importing the different libraries used in the code </div>
-                    <img  src="img/import.PNG"> <br><br>
+                    <img  src="img/import.png"> <br><br>
                     <div class="subheading mb-3">2) Loading the training data to variable(train_data) and analysing it</div>
-                    <img  src="img/training.PNG"> <br><br>
-                    <img  src="img/traininfo.PNG"> <br><br>
+                    <img  src="img/training.png"> <br><br>
+                    <img  src="img/traininfo.png"> <br><br>
                     <p>From the above table we can see that there are lot of null values in Age and Cabin Column and two null values in Embarked Column out of total 891 entries</p>
                     <img  src="img/trainhead.PNG"> <br><br>
                     <p>To better understand the numerical data , we can use the .describe() method.This gives us an understanding of the central
