@@ -329,9 +329,10 @@
           <h2 class="mb-5">BLOGS</h2>
           <ul class="fa-ul mb-0">
 
-            <h3 class="mb-0">1) Sentiment analysis on IMDB reviews using NBC-Naive Bayes Classifier </h3></br>
+            <h3 class="mb-0">BLOG 4 - Sentiment analysis on IMDB reviews using NBC-Naive Bayes Classifier </h3></br>
             <p>In this blog we will be learning about the concept of Naive bayes where we will be performing Sentiment Analysis on reviews from
               IMDB website.First lets see the basic concept of Naive Bayes.</p>
+              <p>The link to my complete code in <a href="https://github.com/nssn96/Sentiment_analysis-NBC/blob/main/NBC_submitted.ipynb">Google colab</a></p>
               <div class="subheading mb-3">NBC-Introduction</div>
               <p>Naive Bayes classifier is classification algorithm based on Bayes Theorem.Bayes’ Theorem finds the probability of an event occurring given the probability of another event that has already occurred. Bayes’ theorem is stated mathematically as the following equation:</p>
               <img  src="img/bayes1.PNG"> <br><br>
@@ -381,7 +382,46 @@
                         <img  src="img/3allproboutput.PNG"> <br><br>
                         <div class="subheading mb-3">P[“the”] = num of documents containing ‘the’ / num of all documents</div>
                         <img  src="img/3the.PNG"> <br><br>
-                      
+                        <div class="subheading mb-3">Conditional probability based on the sentiment</div>
+                        <p>In this step we will be finding the conditional probablity.The sentiment_probability is a function which is dependent on another function count_all which is used to find the count of all positive and negative sentiment in the given dataset</p>
+                        <p>The formula for finding the conditional probablity is
+                          P(word|Sentiment)= (P(Sentiment|word)*P(word))//P(Sentiment)</p>
+                          <p>The count array contains the count of all positive and negative sentiment in the dataset.If the sentiment passed is 1 then respective count value is given to the count.If the sentiment passed is 0 then respective count value is given to the count.Then applying the above formulla we can get conditional probablity of the desired word for given sentiment.</p>
+                          <img  src="img/3cp1.PNG"> <br><br>
+                          <img  src="img/3cp2.PNG"> <br><br>
+                          <div class="subheading mb-3">P[“the” | Positive]  = # of positive documents containing “the” / num of all positive review documents</div>
+                          <img  src="img/3theP.PNG"> <br><br>
+                          <div class="subheading mb-3">Calculate accuracy using dev dataset </div>
+                          <p>We will be conducting the five fold cross validation</p>
+                          <p>K-Fold Cross Validation is a concept where a given data set is divided into a K number of fold or sections where each fold is used as a testing set. In our scenario we will be performing the 5-Fold cross validation(k=5).Here, the data set is split into 5 folds.In the first iteration, the first fold will be used as test model and the rest 4 folds will be used for training. In the second iteration, 2nd fold is used as the testing set while the rest serve as the training set. This process is repeated until each fold of the 5 folds have been used as the testing set.</p>
+                          <p>In the Kfold_accuracy function first calculation of the fold size is done by dividing the size of data by the value of K.Thus if the data size is 100 and k is 5 each fold contains 20 sentences.</p>
+                          <img  src="img/3ff1.PNG"> <br><br>
+                          <img  src="img/3ff2.PNG"> <br><br>
+                          <img  src="img/3ff3.PNG"> <br><br>
+                          <img  src="img/3ff4.PNG"> <br><br>
+                          <p>Some of the output below for the 5 folds validation</p>
+                          <img  src="img/3ff5.PNG"> <br><br>
+                          <div class="subheading mb-3">Comparing the effect of Smoothing and calculation of the final accuracy</div>
+                          <p>The zero probability problem in Naïve Bayes, where the entire expression becomes zero if one of the conditional probabilities is zero,
+                            can be handeled by using Laplace smoothing.The smoothing technique that has been used here is the Laplace estimate which uses alpha as the smoothing parameter.</p>
+                           <p>If the alpha value is zero then there will not be any smoothing and the probablity will be zero if any of the feature doesnt have a value,but
+                            if alpha value is set to 1, then even though any feature value is missing the probability will not become zero.</p> 
+                         <p>The cal_accuracy function depends on predict function.The predict function takes 4 arguments the review, vocabulary, label_count, lam(the
+                          smoothing parameter).The role of the predict function is to calculate the probability ->  prob += ((vocabulary[word][label]+lam) / (label_count[label]+(lam*len(vocabulary)))), this will find the probablity for both positive sentiment and a negative sentiment.If the negative probablity is greater than the positive probablity then returns 0 else it returns 1.So eventually the predict function predicts the sentiment based on the probability of the word.
+                          </p>
+                          <p>After applying smoothing on the test_data the final accuracy comes out to be 60%</p>
+                          <img  src="img/3fc.PNG"> <br><br>
+
+                          <div class="subheading mb-3">Derive Top 10 words that predicts positive and negative class</div>
+                          <img  src="img/3tt1.PNG"> <br><br>
+                          <img  src="img/3tt2.PNG"> <br><br>
+
+                          <div class="subheading mb-3">REFERENCES</div>
+                          <p>Please find below the references I used to understand the concept and build the code</p>
+                          <p>1) To understand the indepth <a href="https://stackoverflow.com/questions/10059594/a-simple-explanation-of-naive-bayes-classification/20556654#20556654">concept of Naive Bayes</a></p>
+                          <p>2) Different steps in <a href="https://www.kdnuggets.com/2018/03/text-data-preprocessing-walkthrough-python.html">Pre-processing of text data</a></p>
+                          <p>3) To understand the <a href="https://rafalab.github.io/dsbook/smoothing.html">concept of Smoothing</a></p>
+                          <p>4) Concept of <a href="https://medium.datadriveninvestor.com/k-fold-cross-validation-6b8518070833">K-fold cross validation</a></p>
 
 
 
@@ -407,7 +447,10 @@
 
 
 
-            <h3 class="mb-0">1) Concept of overfitting </h3></br>
+
+
+
+            <h3 class="mb-0">BLOG 3 - Concept of overfitting </h3></br>
             <p>In this blog we will be learning about the concept of overfitting using Higher order linear regression.First lets see 
               the basic definition of overfitting and underfitting.</p>
               <div class="subheading mb-3">overfitting</div>
@@ -419,7 +462,7 @@
                 <p>Underfitting occurs when the model or algorithm does not fit the data well enough i.e when the model is to simple</p>
                 <p>when Model Complexity < Available Data underfitting occurs</p>
 
-                <p>The link to my complete code on <a href="">Google colab</a></p>
+                <p>The link to my complete code on <a href="https://github.com/nssn96/overfitting/blob/main/Nadhamuni_Suresh_02.ipynb">Google colab</a></p>
 
                 <p>Lets see the each steps that I used to approach the problem where I reduced the loss and increase the performance of the model</p>
                 
@@ -516,7 +559,7 @@
 
 
 
-            <h3 class="mb-0">2) Training an image classifier using CNN on the CIFAR-10 dataset</h3></br>
+            <h3 class="mb-0"> BLOG 2 - Training an image classifier using CNN on the CIFAR-10 dataset</h3></br>
             <p>We will be building an image classifier using CNN(convolutional Neural Net) on the famous dataset--The CIFAR-10 dataset. Please find below the complete guide with code and  various steps involved from downloading the dataset to building ,training and testing the model</p>
             <p>The link to my complete code on <a href="https://github.com/nssn96/Image_Classifier/blob/main/Image_classifier_CIFAR10.ipynb">Google colab</a></p>
             <p>Lets see the each steps that I used to approach the problem where I improved my accuracy from 54% to 71% </p>
@@ -603,7 +646,7 @@
 
 
 
-            <h3 class="mb-0">3)Titanic - Machine Learning from Disaster Project from Kaggle Walk Through</h3></br>
+            <h3 class="mb-0">BLOG 1 - Titanic - Machine Learning from Disaster Project from Kaggle Walk Through</h3></br>
             <p>In this blog, I hope to show how I worked through the famous Titanic problem in kaggle for Beginners. 
               The goal is to correctly predict if someone survived the Titanic shipwreck.</p>
             <p> In this project we need to create a machine learning model that predicts which passengers survived the Titanic shipwreck.
