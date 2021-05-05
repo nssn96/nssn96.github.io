@@ -354,6 +354,123 @@
           <h2 class="mb-5">BLOGS</h2>
           <ul class="fa-ul mb-0">
 
+            <h3 class="mb-0">BLOG 5 - Diabetes Classifier based on Naive bayes </h3></br>
+            <p>In this blog we will be learning about the Diabetes Classifier that I built based on Naive Bayes Classifier.</p>
+              <p>The link to my complete code in <a href="https://github.com/nssn96/Diabetes-Classifier/blob/main/DiabetesClassifier_Final.ipynb">Google colab</a></p>
+              <div class="subheading mb-3">NBC-Introduction</div>
+              <p>Naive Bayes classifier is classification algorithm based on Bayes Theorem.Bayes’ Theorem finds the probability of an event occurring given the probability of another event that has already occurred.</p>
+              <div class="subheading mb-3">About Dataset</div>
+              <p>I am importing the dataset directly from the Kaggle webbsite.This dataset is originally from the National Institute of Diabetes and Digestive and Kidney Diseases.
+              The objective is to predict based on diagnostic measurements whether a patient has diabetes.</p>
+              <p>Several constraints were placed on the selection of these instances from a larger database. In particular, all patients here are females at least 21 years old.</p>
+              <p>1) Pregnancies: Number of times pregnant</br>
+                2) Glucose: Plasma glucose concentration a 2 hours in an oral glucose tolerance test</br>
+                3) BloodPressure: Diastolic blood pressure (mm Hg)</br>
+                4) SkinThickness: Triceps skin fold thickness (mm)</br>
+                5) Insulin: 2-Hour serum insulin (mu U/ml)</br>
+                6) BMI: Body mass index (weight in kg/(height in m)^2)</br>
+                7) DiabetesPedigreeFunction: Diabetes pedigree function</br>
+                8) Age: Age (years)</br>
+                9) Outcome: Class variable (0 for Non-Diabetic or 1 for Diabetic)</p>
+
+                <div class="subheading mb-3"> Importing the required Libraries</div>
+                <img  src="img/4import.PNG"> <br><br>
+                
+                <div class="subheading mb-3">Load and review data</div>
+                <img  src="img/4load.PNG"> <br><br>
+
+                <p> From the above output we can see that there are 2000 rows and 9 columns. This is what can be called as  Curse of dimensionality</p>
+                <p>CURSE OF DIMENSIONALITY : Machine learning excels at analyzing data with many dimensions, but it becomes more challenging to create meaningful models as the number of rows is a way higher than the number of columns</p>
+                 
+                <div class="subheading mb-3">Statistical details of the dataset</div>
+                <p> we can use the .describe() for that</p>
+                <img  src="img/4stat.PNG"> <br><br>
+
+                <p>Now, to check the different features of the dataset and the datatypes of it, we can use .info()</p>
+                <img  src="img/4info.PNG"> <br><br>
+                <p>We also should check if there are any null values in the dataset for the respective features</p>
+                <img  src="img/4null.PNG"> <br><br>
+                <p>From the above output we can see that there are no missing values in the dataset.We can consider the values zero in features as missing values and should be imputed before applying it to the classifier.Because Naive Bayes classifier is susceptible to missing values.</p>
+                
+                <div class="subheading mb-3">Exploratory Data Analysis</div>
+                <p>Histogram</p>
+                <img  src="img/4hist.PNG"> <br><br>
+                <p>The following can be inferred from the above histogram</br>
+                  1) Number of pregnancies is a discrete variable and it is left skewed.</br>
+                  2) Glucose ,Blood pressure and BMI features are continuous variables and are normally distributed, so it will work well with naive bayes algorithm.</br>
+                  3) Diabets Pedigree function feature is left skewed.</br>
+                  4) Age feature is left skewed and is more of a discrete variable</p>
+                 
+                  <div class="subheading mb-3">To identify Correlation in data</div>
+                  <p>This step is done inorder to identify dependency or correlation between the independent features. Naive Bayes classifier assumes that the predictor variables are mutually independent of each other ie there should no or less correlation between the independent variables.</p>
+                  <img  src="img/4corr.PNG"> <br><br>
+                  <p>However we want to see correlation in graphical representation so we can use Heatmap function for detecting the correlation</p>
+                  <p>HeatMap</p>
+                  <img  src="img/4corrheatmap.PNG"> <br><br>
+                  <p>From the above we can see that most of the features are not correlated but Insulin and skin thickness,Age and Pregnancies have high positive correlation</p>
+  
+                  <p>Pairplot - to detect the correlation between independent variable using graphs or plots</p>
+                  <img  src="img/4pp1.PNG"> <br><br>
+                  <img  src="img/4pp2.PNG"> <br><br>
+                  <p>From the above graph we can conform that Insulin and skin thickness, Age and Pregnancies have high positive correlation or highly correlated. The Problem of correlation between independent variables can be overcomed by feature Engineering.</p>
+                  <div class="subheading mb-3">Checking for Outliers</div>
+                  <p>In this step we will be checking for outliers in the dataset for the each individual features</p>
+                  <img  src="img/4outp.PNG"> <br><br>
+                  <img  src="img/4outgluc.PNG"> <br><br>
+                  <img  src="img/4outbp.PNG"> <br><br>
+                  <img  src="img/4outskin.PNG"> <br><br>
+                  <img  src="img/4outinsulin.PNG"> <br><br>
+                  <img  src="img/4outbmi.PNG"> <br><br>
+                  <img  src="img/4outpedigree.PNG"> <br><br>
+                  <img  src="img/4outage.PNG"> <br><br>
+                  <p>From the above box-plotes we can see that all the features have outliers in them. The black dots in each box-plots are
+                    the outliers
+                  </p>
+
+                  <p>Inorder to improve the model performance and make it stable, we need to remove the outliers which is what we will be doing in this next step</p>
+                  <div class="subheading mb-3">Outlier removal
+                  </div>
+                  <p>We will be using the function remove_outlier for the removal of outliers</p>
+                  <img  src="img/4outremoval.PNG"> <br><br>
+                  
+
+                  
+
+
+
+
+                
+                
+                 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <h3 class="mb-0">BLOG 4 - Sentiment analysis on IMDB reviews using NBC-Naive Bayes Classifier </h3></br>
             <p>In this blog we will be learning about the concept of Naive bayes where we will be performing Sentiment Analysis on reviews from
               IMDB website.First lets see the basic concept of Naive Bayes.</p>
