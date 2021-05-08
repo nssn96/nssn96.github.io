@@ -432,7 +432,98 @@
                   </div>
                   <p>We will be using the function remove_outlier for the removal of outliers</p>
                   <img  src="img/4outremoval.PNG"> <br><br>
-                  
+                  <p>We will be plotting the box plot again to check whether the outliers were removed properly</p>
+                  <img  src="img/4boxcheck.PNG"> <br><br>
+                  <img  src="img/4box1.PNG"> <br><br>
+                  <img  src="img/4box2.PNG"> <br><br>
+                  <img  src="img/4box3.PNG"> <br><br>
+                  <img  src="img/4box4.PNG"> <br><br>
+                  <p>From the above box plots we can see that all the outliers have been removed successfully</p>
+
+                  <div class="subheading mb-3">Checking for zeros in the dataset</div>
+                  <p>Data Preparation-Check hidden missing values As we checked missing values earlier but haven't got any. But there can be lots of entries with 0 values. We must need to take care of those as well since
+                    Naive Bayes classifier is very sensitive to zero values in dataset.
+                  </p>
+                  <img  src="img/4zero.PNG"> <br><br>
+                  <p>From the above output we can see that there are zero values in number of Pregnancies, SkinThickness and Insulin. But, logically the number of pregnancies can be zero whereas the skinthickness and insulin cannot have the value zero and therefore needs to be imputed with median value.</p>
+                  <p>The code for replacing the empty values with median value</p>
+                  <img  src="img/4median.PNG"> <br><br>
+                  <img  src="img/4medianout.PNG"> <br><br>
+                  <p>From the above output we can see that except the number of pregnancies feature we dont have any zeros in the other fetaure</p>
+                  <div class="subheading mb-3">Calculate diabetes ratio of True/False from outcome variable</div>
+                  <img  src="img/4diabetesratio.PNG"> <br><br>
+                  <p>So we have 34.20% people in current data set who have diabetes and rest of 65.80% doesn't have diabetes.</p>
+                  <p>There is a slight data imbalance in the dataset which can be overcomed by SMOTE technique, which we can try it on experimentation section</p>
+                 
+                  <div class="subheading mb-3">Spliting the dataset</div>
+                  <p>X indicates set of independent variables and Y indicates dependent variable. I will use 70% of data for training and 30% for testing.</p>
+                  <p>we are using sklearn model selection to split the dataset into train and test set</p>
+                  <img  src="img/4split.PNG"> <br><br>
+                  <p>Lets check split of data</p>
+                  <img  src="img/4split2.PNG"> <br><br>
+                  <p>Now lets check diabetes True/False ratio in split data</p>
+                  <img  src="img/4truesplit.PNG"> <br><br>
+
+
+                  <div class="subheading mb-3">Train Naive Bayes algorithm</div>
+                  <img  src="img/4naivealgo.PNG"> <br><br>
+                  <div class="subheading mb-3">Probablity of occurance</div>
+                  <p>The Probability of outcome in the Naive bayes model where if the probability value of zero occuring is higher the prediction will be 0 -> is non-diabetic and if Probability of 1 occuring is higer then the outcome will be 1 -> is Diabetic.</p>
+                  <img  src="img/4testpredict.PNG"> <br><br>
+                  <p>From the above Probability output in the first column 0.601113 > 0.398887 , therefor the Outcome of the prediction will be 1, as you can see which is the same from the below output</p>
+
+                  <p>The outcome of the Naive bayes classifier.</p>
+                  <img  src="img/4naiveoutcome.PNG"> <br><br>
+                  <div class="subheading mb-3">Lets check the confusion matrix and classification report</div>
+                  <p>Performance Matrix on train data set</p>
+                  <img  src="img/4performtrain.PNG"> <br><br>
+                  <p>The Recall and precision score indicate that it is a good model for the diabetes dataset</p>
+                  <p>So, the total number of correct predictions done by the model = 754+311 = 1065</p>
+                  <p>So, the total number of incorrect predictions done by the model = 158+177 = 335</p>
+                  <p>Since the number of correct predictions is higher than the incorrect predictions the model works well in the training data</p>
+                  <p>Performance Matrix on test data set</p>
+                  <img  src="img/4performtest.PNG"> <br><br>
+                  <p>The Recall and precision score indicate that it is a good model for the diabetes dataset</p>
+                  <p>So, the total number of correct predictions done by the model = 324+132 = 456 </p>
+                  <p>So, the total number of incorrect predictions done by the model = 80+64 = 144</p>
+                  <p>Since the number of correct predictions is higher than the incorrect predictions the model works well in the test data</p>
+                  <p>
+                    From the above output from the performance of the model from training and testing dataset, we can say that the model has no overfitting or underfitting</p>
+
+                    <div class="subheading mb-3">EXPERIMENT SECTION</div>
+                    <p>Earlier we saw that there was a slight data imbalance in the dataset which might affect the accuracy of the model. This can be overcomed by SMOTE technique.</p>
+                    <p>SMOTE--> Synthetic Minority Oversampling (SMOTE) works by creating synthetic observations based upon the existing minority observations</p>
+                    <p>we are importing the SMOTE function and resampling x and y value</p>
+                    <img  src="img/4smote.PNG"> <br><br>
+                    <img  src="img/4xresample.PNG"> <br><br>
+                    <p>we will then train the resampled x value with naive Bayes</p>
+                    <img  src="img/4smotenaive.PNG"> <br><br>
+                    <p>Performance Matrix on train data set with SMOTE</p>
+                    <img  src="img/4smotetrain.PNG"> <br><br>
+                    <p>Performance Matrix on test data set with SMOTE</p>
+                    <img  src="img/4smotetest.PNG"> <br><br>
+
+                    <div class="subheading mb-3">CROSS VALIDATION</div>
+                    <p>To increase the accuracy of the training set. We are using 10 folds for the cross validation</p>
+                    <img  src="img/4crosstrain.PNG"> <br><br>
+                    <img  src="img/4crosstest.PNG"> <br><br>
+                    <p>From the above 10 fold cross validation we can infer that the test score has improved from the initial 76% to 83%</p>
+                    <p>I tried to improve the accuracy score by using SMOTE technique and K fold cross validation. from the above experimentation we can see that while using the 10 fold cross validation has improved the accuracy score to 83%</p>
+
+                    <div class="subheading mb-3">REFERENCES</div>
+                    <p>Please find below the references I used to understand the concept and build the code</p>
+                    <p>1) To understand the indepth <a href="https://stackoverflow.com/questions/10059594/a-simple-explanation-of-naive-bayes-classification/20556654#20556654">concept of Naive Bayes</a></p>
+                    <p>2) To generate <a href="https://www.dezyre.com/recipes/generate-classification-report-and-confusion-matrix-in-python">confusion matrix and classification report.</a></p>
+                    <p>3) To understand the concept of <a href="https://www.dataminingapps.com/2016/11/what-is-smote-in-an-imbalanced-class-setting-e-g-fraud-detection/">SMOTE technique</a></p>
+                    <p>4) Concept of <a href="https://medium.datadriveninvestor.com/k-fold-cross-validation-6b8518070833">K-fold cross validation</a></p>
+
+
+
+
+
+
+
+
 
                   
 
